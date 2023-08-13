@@ -1,11 +1,26 @@
 const Collide = {
+	// Credit to https://www.jeffreythompson.org/collision-detection/table_of_contents.php
+	// Translated by me to vanilla JS
+
 	point: {
-		tri: function (point, tri = [0, 0, 0, 0, 0, 0]) {
-			//////////
-			// FIX //
-			/////////
+		tri: function (p, tri = [0, 0, 0, 0, 0, 0]) {
+			let p0x = tri[0];
+			let p0y = tri[1];
+			let p1x = tri[2];
+			let p1y = tri[3];
+			let p2x = tri[4];
+			let p2y = tri[5];
+			let dX = p[0] - p2x;
+			let dY = p[1] - p2y;
+			let dX21 = p2x - p1x;
+			let dY12 = p1y - p2y;
+			let D = dY12 * (p0x - p2x) + dX21 * (p0y - p2y);
+			let s = dY12 * dX + dX21 * dY;
+			let t = (p2y - p0y) * dX + (p0x - p2x) * dY;
+			if (D < 0) return s <= 0 && t <= 0 && s + t >= D;
+			return s >= 0 && t >= 0 && s + t <= D;
 		},
-		rect: function (p, rect) {
+		rect: function (p, rect = [0, 0, 123, 456]) {
 			// [x,y], [x,y,w,h]
 			if (
 				p[0] > rect[0] &&
@@ -34,12 +49,124 @@ const Collide = {
 			}
 			return false;
 		},
-		line: function () {},
+		line: function (p, line) {
+			const len = Math.sqrt(
+				Math.pow(line[0] - line[2], 2) + Math.pow(line[1] - line[3], 2)
+			);
+			const d1 = Math.sqrt(
+				Math.pow(line[0] - p[0], 2) + Math.pow(line[1] - p[1], 2)
+			);
+			const d2 = Math.sqrt(
+				Math.pow(line[2] - p[0], 2) + Math.pow(line[3] - p[1], 2)
+			);
+
+			if (d1 + d2 == len) {
+				return true;
+			}
+			return false;
+		},
 	},
 
 	circle: {
 		tri: function () {},
+		rect: function (circle, rect) {
+			const distX = Math.abs(circle[0] - rect[0] - rect[2] / 2);
+			const distY = Math.abs(circle[1] - rect[1] - rect[3] / 2);
+
+			if (
+				distX > rect[2] / 2 + circle[2] ||
+				distY > rect[3] / 2 + circle[2]
+			) {
+				return false;
+			}
+
+			if (distX <= rect[2] / 2 || distY <= rect[3] / 2) {
+				return true;
+			}
+
+			return (
+				Math.pow(distX - rect[2] / 2, 2) +
+					Math.pow(distY - rect[3] / 2, 2) <=
+				Math.pow(circle[2], 2)
+			);
+		},
+		circle: function (c, circle) {
+			const final =
+				Math.sqrt(
+					Math.pow(c[0] - circle[0], 2) +
+						Math.pow(c[1] - circle[1], 2)
+				) <
+				circle[2] + c[2];
+			if (final) {
+				return true;
+			}
+			return false;
+		},
+		point: function (c, point) {
+			if (
+				Math.sqrt(
+					Math.pow(point[0] - c[0], 2) + Math.pow(point[1] - c[1], 2)
+				) < c[2]
+			) {
+				return true;
+			}
+			return false;
+		},
+		line: function () {},
+	},
+
+	rect: {
+		tri: function (r, tri) {},
+		rect: function (r, rect) {
+			if (
+				r[0] + r[2] <= rect[0] &&
+				r[0] <= rect[0] + rect[2] &&
+				r[1] + r[3] >= rect[1] &&
+				r[1] <= rect[1] + rect[3]
+			) {
+				return true;
+			}
+			return false;
+		},
+		circle: function (rect, circle) {
+			// https://stackoverflow.com/a/21096179
+			const distX = Math.abs(circle[0] - rect[0] - rect[2] / 2);
+			const distY = Math.abs(circle[1] - rect[1] - rect[3] / 2);
+
+			if (
+				distX > rect[2] / 2 + circle[2] ||
+				distY > rect[3] / 2 + circle[2]
+			) {
+				return false;
+			}
+
+			if (distX <= rect[2] / 2 || distY <= rect[3] / 2) {
+				return true;
+			}
+
+			return (
+				Math.pow(distX - rect[2] / 2, 2) +
+					Math.pow(distY - rect[3] / 2, 2) <=
+				Math.pow(circle[2], 2)
+			);
+		},
+		point: function (r, point) {},
+		line: function (r, line) {},
+	},
+
+	tri: {
+		tri: function () {},
 		rect: function () {},
 		circle: function () {},
+		point: function () {},
+		line: function () {},
+	},
+
+	line: {
+		tri: function () {},
+		rect: function () {},
+		circle: function () {},
+		point: function () {},
+		line: function () {},
 	},
 };
