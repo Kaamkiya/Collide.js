@@ -18,14 +18,25 @@ To use this plugin, add this code to your `head` tag:
      For example,
 
 ```js
-Collide.point.tri([0, 0], [-10, 10, -30, 100, 50, -10])
+Collide.point.tri([0, 0], [-10, -10, -30, 100, 50, -10])
 ```
 
-    Would return `false`. 
+    returns `true`, because the point is within the boundaries of the triangle. 
    * #### .rect
      Accepts 2 parameters: `point` and `rect`.
+     
+     Returns whether the point `point` is inside `rect`.
+
+     For example,
+
+```js
+Collide.point.rect([10, 63.4], [4, 10, 50, 37])
+```
+
+    returns `false`, because the point is outside the boundaries of the rectangle. 
    * #### .circle
      Accepts 2 parameters: `point` and `circle`.
+     
    * #### .point
      Accepts 2 parameters: `p` and `point`.
    * #### .line
