@@ -4,18 +4,10 @@ const Collide = {
 
 	point: {
 		tri: function (p, tri = [0, 0, 0, 0, 0, 0]) {
-			let p0x = tri[0];
-			let p0y = tri[1];
-			let p1x = tri[2];
-			let p1y = tri[3];
-			let p2x = tri[4];
-			let p2y = tri[5];
-			let dX = p[0] - p2x;
-			let dY = p[1] - p2y;
-			let dX21 = p2x - p1x;
-			let dY12 = p1y - p2y;
-			let D = dY12 * (p0x - p2x) + dX21 * (p0y - p2y);
-			let s = dY12 * dX + dX21 * dY;
+			let p0x = tri[0], p0y = tri[1], p1x = tri[2];
+			let p1y = tri[3], p2x = tri[4], p2y = tri[5];
+			let dX = p[0] - p2x, dY = p[1] - p2y, dX21 = p2x - p1x;
+			let dY12 = p1y - p2y, D = dY12 * (p0x - p2x) + dX21 * (p0y - p2y), s = dY12 * dX + dX21 * dY;
 			let t = (p2y - p0y) * dX + (p0x - p2x) * dY;
 			if (D < 0) return s <= 0 && t <= 0 && s + t >= D;
 			return s >= 0 && t >= 0 && s + t <= D;
