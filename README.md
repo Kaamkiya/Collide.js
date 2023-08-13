@@ -21,7 +21,7 @@ To use this plugin, add this code to your `head` tag:
 Collide.point.tri([0, 0], [-10, -10, -30, 100, 50, -10])
 ```
 
-    returns `true`, because the point is within the boundaries of the triangle. 
+    returns ```true```, because the point is within the boundaries of the triangle. 
     
    * #### .rect
      Accepts 2 parameters: `point` and `rect`.
