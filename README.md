@@ -17,11 +17,11 @@ To use this plugin, add this code to your `head` tag:
 
      For example,
 
-```javascript
+```js
 Collide.point.tri([0, 0], [-10, 10, -30, 100, 50, -10])
 ```
 
-     Would return `false`. 
+    Would return `false`. 
    * #### .rect
      Accepts 2 parameters: `point` and `rect`.
    * #### .circle
