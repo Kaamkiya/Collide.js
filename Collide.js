@@ -14,23 +14,13 @@ const Collide = {
 		},
 		rect: function (p, rect = [0, 0, 123, 456]) {
 			// [x,y], [x,y,w,h]
-			if (
-				p[0] > rect[0] &&
-				p[0] < rect[0] + rect[2] &&
-				p[1] > rect[1] &&
-				p[1] < rect[1] + rect[3]
-			) {
+			if (p[0] > rect[0] && p[0] < rect[0] + rect[2] && p[1] > rect[1] && p[1] < rect[1] + rect[3]) {
 				return true;
 			}
 			return false;
 		},
 		circle: function (p, circle) {
-			if (
-				Math.sqrt(
-					Math.pow(p[0] - circle[0], 2) +
-						Math.pow(p[1] - circle[1], 2)
-				) < circle[2]
-			) {
+			if (Math.sqrt(Math.pow(p[0] - circle[0], 2) + Math.pow(p[1] - circle[1], 2)) < circle[2]) {
 				return true;
 			}
 			return false;
@@ -42,16 +32,9 @@ const Collide = {
 			return false;
 		},
 		line: function (p, line) {
-			const len = Math.sqrt(
-				Math.pow(line[0] - line[2], 2) + Math.pow(line[1] - line[3], 2)
-			);
-			const d1 = Math.sqrt(
-				Math.pow(line[0] - p[0], 2) + Math.pow(line[1] - p[1], 2)
-			);
-			const d2 = Math.sqrt(
-				Math.pow(line[2] - p[0], 2) + Math.pow(line[3] - p[1], 2)
-			);
-
+			const len = Math.sqrt(Math.pow(line[0] - line[2], 2) + Math.pow(line[1] - line[3], 2));
+			const d1 = Math.sqrt(Math.pow(line[0] - p[0], 2) + Math.pow(line[1] - p[1], 2));
+			const d2 = Math.sqrt(Math.pow(line[2] - p[0], 2) + Math.pow(line[3] - p[1], 2));
 			if (d1 + d2 == len) {
 				return true;
 			}
@@ -62,13 +45,11 @@ const Collide = {
 	circle: {
 		tri: function () {},
 		rect: function (circle, rect) {
+			// Stack Overflow
 			const distX = Math.abs(circle[0] - rect[0] - rect[2] / 2);
 			const distY = Math.abs(circle[1] - rect[1] - rect[3] / 2);
 
-			if (
-				distX > rect[2] / 2 + circle[2] ||
-				distY > rect[3] / 2 + circle[2]
-			) {
+			if (distX > rect[2] / 2 + circle[2] || distY > rect[3] / 2 + circle[2]) {
 				return false;
 			}
 
@@ -76,30 +57,17 @@ const Collide = {
 				return true;
 			}
 
-			return (
-				Math.pow(distX - rect[2] / 2, 2) +
-					Math.pow(distY - rect[3] / 2, 2) <=
-				Math.pow(circle[2], 2)
-			);
+			return (Math.pow(distX - rect[2] / 2, 2) + Math.pow(distY - rect[3] / 2, 2) <= Math.pow(circle[2], 2));
 		},
 		circle: function (c, circle) {
-			const final =
-				Math.sqrt(
-					Math.pow(c[0] - circle[0], 2) +
-						Math.pow(c[1] - circle[1], 2)
-				) <
-				circle[2] + c[2];
+			const final = Math.sqrt(Math.pow(c[0] - circle[0], 2) +Math.pow(c[1] - circle[1], 2)) < circle[2] + c[2];
 			if (final) {
 				return true;
 			}
 			return false;
 		},
 		point: function (c, point) {
-			if (
-				Math.sqrt(
-					Math.pow(point[0] - c[0], 2) + Math.pow(point[1] - c[1], 2)
-				) < c[2]
-			) {
+			if (Math.sqrt(Math.pow(point[0] - c[0], 2) + Math.pow(point[1] - c[1], 2)) < c[2]) {
 				return true;
 			}
 			return false;
@@ -110,12 +78,7 @@ const Collide = {
 	rect: {
 		tri: function (r, tri) {},
 		rect: function (r, rect) {
-			if (
-				r[0] + r[2] <= rect[0] &&
-				r[0] <= rect[0] + rect[2] &&
-				r[1] + r[3] >= rect[1] &&
-				r[1] <= rect[1] + rect[3]
-			) {
+			if (r[0] + r[2] <= rect[0] && r[0] <= rect[0] + rect[2] && r[1] + r[3] >= rect[1] && r[1] <= rect[1] + rect[3]) {
 				return true;
 			}
 			return false;
@@ -125,10 +88,7 @@ const Collide = {
 			const distX = Math.abs(circle[0] - rect[0] - rect[2] / 2);
 			const distY = Math.abs(circle[1] - rect[1] - rect[3] / 2);
 
-			if (
-				distX > rect[2] / 2 + circle[2] ||
-				distY > rect[3] / 2 + circle[2]
-			) {
+			if (distX > rect[2] / 2 + circle[2] || distY > rect[3] / 2 + circle[2]) {
 				return false;
 			}
 
@@ -136,11 +96,7 @@ const Collide = {
 				return true;
 			}
 
-			return (
-				Math.pow(distX - rect[2] / 2, 2) +
-					Math.pow(distY - rect[3] / 2, 2) <=
-				Math.pow(circle[2], 2)
-			);
+			return (Math.pow(distX - rect[2] / 2, 2) + Math.pow(distY - rect[3] / 2, 2) <= Math.pow(circle[2], 2));
 		},
 		point: function (r, point) {},
 		line: function (r, line) {},
