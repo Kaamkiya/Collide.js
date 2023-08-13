@@ -17,9 +17,29 @@ To use this plugin, add this code to your `head` tag:
    * #### .line
 #
 2. ### Collide.circle
+   * #### .tri
+   * #### .rect
+   * #### .circle
+   * #### .point
+   * #### .line
 #
 3. ### Collide.rect
+   * #### .tri
+   * #### .rect
+   * #### .circle
+   * #### .point
+   * #### .line
 #
 4. ### Collide.tri
+   * #### .tri
+   * #### .rect
+   * #### .circle
+   * #### .point
+   * #### .line
 #
 5. ### Collide.line
+   * #### .tri
+   * #### .rect
+   * #### .circle
+   * #### .point
+   * #### .line
