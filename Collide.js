@@ -1,6 +1,6 @@
 const Collide = {
-	// Credit to https://www.jeffreythompson.org/collision-detection/table_of_contents.php
-	// Translated by me to vanilla JS
+	// Credit to jeffreythompson.org for some of the formulae
+	// Translated by me to Vanilla JS (from Processing)
 
 	point: {
 		tri: function (p, tri = [0, 0, 0, 0, 0, 0]) {
