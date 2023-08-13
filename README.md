@@ -13,7 +13,7 @@ To use this plugin, add this code to your `head` tag:
    * #### .tri
      Accepts 2 parameters: `p` and `tri`.
 
-     Returns whether the point `p` is inside `tri.
+     Returns whether the point `p` is inside `tri`.
 
      For example,
 
