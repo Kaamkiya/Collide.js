@@ -72,7 +72,22 @@ const Collide = {
 			}
 			return false;
 		},
-		line: function () {},
+		line: function (c, line) {
+			const x1 = line[0], y1 = line[1], x2 = line[2], y2 = line[3];
+			let distX = x1 - x2, distY = y1 - y2;
+			const len = Math.sqrt(Math.pow(distX, 2)+Math.pow(distY, 2));
+			const dot = (((c[0]-x1)*(x2-x1)) + ((c[1]-y1)*(y2-y1)))/Math.pow(len, 2);
+			const closest = {x: x1 + (dot * (x2-x1)), y:y1 + (dot * (y2-y1))};
+
+			distX = closest.x - c[0];
+			distY = closest.y - c[1];
+			const distance = Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
+
+			if (distance <= c[2]) {
+				return true;
+			}
+			return false;
+		},
 	},
 
 	rect: {
