@@ -113,7 +113,13 @@ const Collide = {
 
 			return (Math.pow(distX - rect[2] / 2, 2) + Math.pow(distY - rect[3] / 2, 2) <= Math.pow(circle[2], 2));
 		},
-		point: function (r, point) {},
+		point: function (rect, p) {
+			// [x,y], [x,y,w,h]
+			if (p[0] > rect[0] && p[0] < rect[0] + rect[2] && p[1] > rect[1] && p[1] < rect[1] + rect[3]) {
+				return true;
+			}
+			return false;
+		},
 		line: function (r, line) {},
 	},
 
@@ -121,15 +127,50 @@ const Collide = {
 		tri: function () {},
 		rect: function () {},
 		circle: function () {},
-		point: function () {},
+		point: function (tri, p) {
+			let p0x = tri[0], p0y = tri[1], p1x = tri[2];
+			let p1y = tri[3], p2x = tri[4], p2y = tri[5];
+			let dX = p[0] - p2x, dY = p[1] - p2y, dX21 = p2x - p1x;
+			let dY12 = p1y - p2y, D = dY12 * (p0x - p2x) + dX21 * (p0y - p2y), s = dY12 * dX + dX21 * dY;
+			let t = (p2y - p0y) * dX + (p0x - p2x) * dY;
+			if (D < 0) return s <= 0 && t <= 0 && s + t >= D;
+			return s >= 0 && t >= 0 && s + t <= D;
+		},
 		line: function () {},
 	},
 
 	line: {
+		line: function (line1, line2) {
+			const x1=line1[0],y1=line1[1],x2=line1[2],y2=line1[3],x3=line2[0],y3=line2[1],x4=line1[2],y4=line1[3];
+			const uA = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1));
+			const uB = ((x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1));
+			if (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1) {
+				return true;
+			}
+			return false;
+		},
 		tri: function () {},
-		rect: function () {},
+		rect: function (line, rect) {
+			const x1=line[0],y1=line[1],x2=line[2],y2=line[3];
+			const rx=rect[0],ry=rect[1],rw=rect[2],rh=rect[3];
+			let left = lineLine(x1,y1,x2,y2, rx,ry,rx, ry+rh);
+			let right = lineLine(x1,y1,x2,y2, rx+rw,ry, rx+rw,ry+rh);
+			let top = lineLine(x1,y1,x2,y2, rx,ry, rx+rw,ry);
+			let bottom = lineLine(x1,y1,x2,y2, rx,ry+rh, rx+rw,ry+rh);
+			if (left || right || top || bottom) {
+				return true;
+			}
+			return false;
+		},
 		circle: function () {},
-		point: function () {},
-		line: function () {},
+		point: function (line, p) {
+			const len = Math.sqrt(Math.pow(line[0] - line[2], 2) + Math.pow(line[1] - line[3], 2));
+			const d1 = Math.sqrt(Math.pow(line[0] - p[0], 2) + Math.pow(line[1] - p[1], 2));
+			const d2 = Math.sqrt(Math.pow(line[2] - p[0], 2) + Math.pow(line[3] - p[1], 2));
+			if (d1 + d2 == len) {
+				return true;
+			}
+			return false;
+		},
 	},
 };
