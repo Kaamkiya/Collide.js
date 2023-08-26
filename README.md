@@ -17,15 +17,15 @@ Collide.shape1.shape2([required, parameters, for, shape1], [required, parameters
 ```
 
 ##### Available shapes:
-`tri`
-`rect`
-`circle`
-`point`
-`line`
+* `tri`
+* `rect`
+* `circle`
+* `point`
+* `line`
 
 ##### Required parameters:
-`tri`: [x1, y1, x2, y2, x3, y3]
-`rect`: [x, y, w, h]
-`circle`: [x, y, r]
-`point`: [x, y]
-`line`: [x1, y1, x2, y2]
+* `tri`: [x1, y1, x2, y2, x3, y3]
+* `rect`: [x, y, w, h]
+* `circle`: [x, y, r]
+* `point`: [x, y]
+* `line`: [x1, y1, x2, y2]
