@@ -5,7 +5,7 @@
 ### Usage
 To use this plugin, add this code to your `head` tag:
 ```html
-<script src="https://cdn.jsdelivr.net/gh/Kaamkiya/Collide.js/Collide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/Kaamkiya/Collide.js@master/Collide.min.js"></script>
 ```
 ##
 
@@ -13,8 +13,10 @@ To use this plugin, add this code to your `head` tag:
 
 The format for detecting collisions is
 ```js
-Collide.shape1.shape2([required, parameters, for, shape1], [required, parameters, for, shape2])
+Collide.<shape1>.<shape2>([required, parameters, for, shape1], [required, parameters, for, shape2])
 ```
+
+Where `shape1` and `shape2` are from the list of available shapes. 
 
 ##### Available shapes:
 * `tri`
