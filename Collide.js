@@ -1,3 +1,11 @@
+/**
+ * @name Collide
+ * @version 0.1.2
+ * @author Kaamkiya <http://scratch.mit.edu/users/Kaamkiya#comments>
+ * @license MIT
+ * @see ./LICENSE
+ */
+
 const Collide = {
 	// Credit to jeffreythompson.org for some of the formulae
 	// Translated by me to Vanilla JS (from Processing)
